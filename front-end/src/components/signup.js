@@ -1,13 +1,32 @@
-import React,{useState} from 'react';
-
+import React,{useState,useEffect} from 'react';
+import {useNavigate,} from 'react-router-dom';
 
 const Signtup = ()=>{
     const [name,setNames] = useState('');
     const [email,setEmails] = useState('');
     const [password,setPasswords] = useState('');
-    const getDta = ()=>{
-    console.log(name,email,password)
-}
+    const navigate = useNavigate();
+    useEffect(()=>{
+        const auth = localStorage.getItem('user');
+        if(auth){
+            navigate('/')
+        }
+    });  
+    const getDta = async ()=>{
+       console.log(name,email,password)
+       let result = await fetch('http://localhost:4000/register',{
+            method: 'post',
+            body: JSON.stringify({name,email,password}),
+            headers:{'Content-Type':'application/json'}
+       });
+       result = await result.json();
+       console.log(result)
+       localStorage.setItem('user',JSON.stringify(result))
+       const auth = localStorage.getItem('user');
+    //    if(result){
+    //     navigates('/');
+    //    }
+   }
     return(
         <div className='signup-container'>
             <h1 align="center">Signup or Register from signup components</h1>

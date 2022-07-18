@@ -17,6 +17,8 @@ const express =require('express');
 const app =  express();
 const mongoose = require('mongoose');
 const users = require('./db/users');
+const cors =  require('cors')
+app.use(cors());
 app.use(express.json())
 app.post('/register',async (req,resp)=>{
     let user  = new users(req.body);
