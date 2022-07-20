@@ -20,9 +20,26 @@ const users = require('./db/users');
 const cors =  require('cors')
 app.use(cors());
 app.use(express.json())
-app.post('/register',async (req,resp)=>{
-    let user  = new users(req.body);
-    let result = await user.save();
-    resp.send(result);
-})
+        app.post('/register',async (req,resp)=>{
+            let me  = new users(req.body);
+            let result = await me.save();
+            result = result.toObject();
+            delete result.password;
+            resp.send(result);
+            console.log(result);
+        })
+
+app.post('/login', async (req,resp)=>{
+    console.warn(req.body)
+  if(req.body.email && req.body.password){ 
+    let data  = await users.findOne(req.body).select('-password');
+    if(data){
+        resp.send(data);
+    }else{
+    resp.send({result:'sorry no data found'});
+    }
+   }else{
+    resp.send({result:'sorry no data found'});
+   }
+});
 app.listen(4000);

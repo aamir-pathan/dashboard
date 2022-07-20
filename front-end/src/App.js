@@ -4,7 +4,7 @@ import Nav from './components/nav';
 import Footer from './components/footer';
 import Signtup from './components/signup';
 import PrivateComponent from './components/privatecomponent';
-
+import Login from './components/login';
 import {BrowserRouter,Route,Routes} from 'react-router-dom';
 function App() {
   return (
@@ -19,6 +19,7 @@ function App() {
             <Route path='/logout' element = {<h1>logout page from main page</h1>} />
           <Route/>
           <Route path='/signup' element = {<Signtup/>} />
+          <Route path='/login' element = {<Login/>} />
          </Routes>
          </BrowserRouter>
          <Footer/>
