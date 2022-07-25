@@ -39,7 +39,7 @@ app.post('/login', async (req,resp)=>{
     resp.send({result:'sorry no data found'});
     }
    }else{
-    resp.send({result:'sorry no data found'});
+    resp.send({result:'sorry no data found outer'});
    }
 });
 app.listen(4000);
