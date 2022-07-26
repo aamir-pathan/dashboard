@@ -20,7 +20,7 @@ const Nav = ()=>{
             }
             {/* <li>{ auth ? <Link to = '/signup' onClick={logout}>Logout</Link> : <Link to = '/signup'>signtup or ragister</Link>}</li>
             <li><Link to = '/login'>Login</Link></li> */}
-            <li>{ auth ? <Link to = './signup' onClick={logout}>Logout</Link> :
+            <li>{ auth ? <Link to = './signup' onClick={logout}>Logout ({JSON.parse(auth).name})</Link> :
               <>
               <Link to = './signup'>Signup</Link>&nbsp;&nbsp;
               <Link to = './login'>Login</Link>

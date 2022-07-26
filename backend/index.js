@@ -16,12 +16,13 @@ require('./db/config');
 const express =require('express');
 const app =  express();
 const mongoose = require('mongoose');
-const users = require('./db/users');
+const User = require('./db/users');
+const products = require('./db/products')
 const cors =  require('cors')
 app.use(cors());
 app.use(express.json())
         app.post('/register',async (req,resp)=>{
-            let me  = new users(req.body);
+            let me  = new User(req.body);
             let result = await me.save();
             result = result.toObject();
             delete result.password;
@@ -42,4 +43,11 @@ app.post('/login', async (req,resp)=>{
     resp.send({result:'sorry no data found outer'});
    }
 });
+
+app.post('/add-product', async(req,resp)=>{
+    let getproduct = new products(req.body);
+    let pro = await getproduct.save();
+    resp.send(pro);
+})
+
 app.listen(4000);

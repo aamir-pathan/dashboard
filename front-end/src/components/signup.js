@@ -23,10 +23,6 @@ const Signtup = ()=>{
        console.log(result)
        localStorage.setItem('user',JSON.stringify(result))
        navigate('/');
-       const auth = localStorage.getItem('user');
-    //    if(result){
-    //     navigates('/');
-    //    }
    }
     return(
         <div className='signup-container'>
