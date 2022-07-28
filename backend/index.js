@@ -33,7 +33,7 @@ app.use(express.json())
 app.post('/login', async (req,resp)=>{
     console.warn(req.body)
   if(req.body.email && req.body.password){ 
-    let data  = await users.findOne(req.body).select('-password');
+    let data  = await User.findOne(req.body).select('-password');
     if(data){
         resp.send(data);
     }else{
