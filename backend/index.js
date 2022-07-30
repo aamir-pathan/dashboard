@@ -50,4 +50,17 @@ app.post('/add-product', async(req,resp)=>{
     resp.send(pro);
 })
 
+app.delete('/delete/:id', async (req,resp)=>{
+    //resp.send(req.params.id);
+    let result = await products.deleteOne({_id:req.params.id})
+    resp.send(result);
+})
+
+app.get('/products', async (req,resp)=>{
+    let getProducts = await products.find({});
+    if(getProducts.length > 0){
+        resp.send(getProducts);
+    }else resp.send({result:"no result found"});
+})
+
 app.listen(4000);
