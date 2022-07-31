@@ -1,4 +1,5 @@
 import React, { useState , useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const ListProduct = ()=>{
     const [products,setProducts] = useState([]);
@@ -22,13 +23,13 @@ const ListProduct = ()=>{
 
     const deleteProject = async (id)=>{   
          //console.warn(id);
-    let data = await fetch(`http://localhost:4000/delete/${id}`,{
-        method: 'delete'    
-    });
-    data = await data.json();
-    if(data){
-        getProduct(); 
-       alert("Dlete data successful");
+        let data = await fetch(`http://localhost:4000/delete/${id}`,{
+            method: 'delete'    
+        });
+        data = await data.json();
+        if(data){
+            getProduct(); 
+        alert("Dlete data successful");
       }else alert('no found')
     }
     return(
@@ -48,14 +49,16 @@ const ListProduct = ()=>{
            {   
                 products.map((items,index)=>
              <>
-                <tr>
+                <tr key={items}>
 
                     <td>{index+1}</td>
                     <td>{items.name}</td>
                     <td>{items.price}</td>
                     <td>{items.category}</td>
                     <td>{items.company}</td>
-                    <td><button type="button" onClick={()=>deleteProject(items._id)}>Delete</button></td>
+                    <td><button type="button" onClick={()=>deleteProject(items._id)}>Delete</button>
+                        <Link to={'/update/'+items._id}>update</Link>
+                    </td>
                 </tr>
             </>   
                             )

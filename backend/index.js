@@ -55,6 +55,13 @@ app.delete('/delete/:id', async (req,resp)=>{
     let result = await products.deleteOne({_id:req.params.id})
     resp.send(result);
 })
+app.get('/getproduct/:ids',async (req,resp)=>{
+     let data =  await products.findOne({_id:req.params.ids})
+     resp.send(data);
+})
+// app.put('/update',async (res,resp)=>{
+//     let data = await products.updateOne()
+// })
 
 app.get('/products', async (req,resp)=>{
     let getProducts = await products.find({});

@@ -8,6 +8,7 @@ import Login from './components/login';
 import AddProduct from './components/addproduct';
 import ListProduct from './components/productlist';
 import {BrowserRouter,Route,Routes} from 'react-router-dom';
+import Updateproduct from './components/updateproducts';
 function App() {
   return (
     <div className="App">
@@ -17,7 +18,7 @@ function App() {
           <Route element={<PrivateComponent/>} />
             <Route path='/' element = {<ListProduct/>} />
             <Route path='/add' element = {<AddProduct/>} />
-            <Route path='/update' element = {<h1>update page from main page</h1>} />
+            <Route path='/update/:id' element = {<Updateproduct/>} />
             <Route path='/logout' element = {<h1>logout page from main page</h1>} />
           <Route/>
           <Route path='/signup' element = {<Signtup/>} />
