@@ -10,8 +10,7 @@ const Updateproduct = ()=>{
     useEffect(()=>{
         getProduct();
         console.warn(params);
-    })
-
+    },[])
     const getProduct = async ()=>{
         let data = await fetch(`http://localhost:4000/getproduct/${params.id}`);
         data = await data.json();
@@ -21,15 +20,27 @@ const Updateproduct = ()=>{
         setCategory(data.category);
         setCompany(data.company);
     }
+
+    const ListUpdate = async()=>{   
+        let data = await fetch(`http://localhost:4000/update/${params.id}`,{
+            method : 'put',
+            body: JSON.stringify({price,company,name,category}),
+            headers: {"Content-Type":"application/json"}
+        })
+        console.warn(price,company,name,category); 
+        data = await data.json();
+    }
+
+
     return(
 
         <div className="add-product">
         <h1>Update product</h1>
         <input type="text" onChange={(e)=>setName(e.target.value)} value={name} placeholder="enter Product name"/>
-            <input type="text" onChange={(e)=>setPrice(e.target.value)} value={price} placeholder="price"/>
-            <input type="text" onChange={(e)=>setCategory(e.target.value)} value={category} placeholder="Category"/>
-            <input type="text" onChange={(e)=>setCompany(e.target.value)} value={company} placeholder="company"/>
-        <button type="button">update button</button>
+            <input type="text" onChange={(e)=>{setPrice(e.target.value)}} value={price} placeholder="price"/>
+            <input type="text" onChange={(e)=>{setCategory(e.target.value)}} value={category} placeholder="Category"/>
+            <input type="text" onChange={(e)=>{setCompany(e.target.value)} }value={company} placeholder="company"/>
+        <button type="button" onClick={ListUpdate}>update button</button>
     </div>
     )
 }

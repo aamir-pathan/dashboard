@@ -59,9 +59,15 @@ app.get('/getproduct/:ids',async (req,resp)=>{
      let data =  await products.findOne({_id:req.params.ids})
      resp.send(data);
 })
-// app.put('/update',async (res,resp)=>{
-//     let data = await products.updateOne()
-// })
+app.put('/update/:ide',async (req,resp)=>{
+    let data = await products.updateOne(
+        {_id: req.params.ide},
+        {
+            $set : req.body
+        }
+        );
+        resp.send(data)
+})
 
 app.get('/products', async (req,resp)=>{
     let getProducts = await products.find({});
