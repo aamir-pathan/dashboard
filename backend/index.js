@@ -76,4 +76,17 @@ app.get('/products', async (req,resp)=>{
     }else resp.send({result:"no result found"});
 })
 
+app.get("/search/:keys",async(req,resp)=>{
+    let result = await products.find(
+        {
+           '$or': [
+                    {name: {$regex: req.params.keys}},
+                    {price: {$regex: req.params.keys}}
+                  ]
+        }
+    )
+    resp.send(result);
+})
+
+
 app.listen(4000);

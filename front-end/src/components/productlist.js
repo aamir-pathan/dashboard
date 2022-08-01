@@ -11,7 +11,6 @@ const ListProduct = ()=>{
 
     const getProduct = async()=>{
         let result = await fetch('http://localhost:4000/products');
-
         // no need to use method ,headers etc due to get mehtod
         //    method : 'post',
         //    body: JSON.stringify({nam,price,category,company}),
@@ -32,8 +31,23 @@ const ListProduct = ()=>{
         alert("Dlete data successful");
       }else alert('no found')
     }
+
+    const searchitem = async (ee)=>{
+        //console.warn(ee.target.value)
+        let itemValue = ee.target.value;
+        if(itemValue){
+            let result = await fetch(`http://localhost:4000/search/${itemValue}`);
+            result = await result.json();
+            if(result){
+                setProducts(result)
+            }
+       }else{
+        getProduct();     
+       }
+    }
     return(
         <div className="product-list-container">
+            <input type="text" placeholder="Search item" onChange={searchitem}/>
         <table>
            <thead>
            <tr>
@@ -47,7 +61,7 @@ const ListProduct = ()=>{
            </thead>
            <tbody>
            {   
-                products.map((items,index)=>
+            products.length > 0 ? products.map((items,index)=>
              <>
                 <tr key={items}>
 
@@ -62,6 +76,8 @@ const ListProduct = ()=>{
                 </tr>
             </>   
                             )
+             : <tr><td>No reuslt found</td></tr>
+
                         }
            </tbody>
         </table>
