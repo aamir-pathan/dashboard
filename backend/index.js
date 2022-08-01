@@ -19,6 +19,9 @@ const mongoose = require('mongoose');
 const User = require('./db/users');
 const products = require('./db/products')
 const cors =  require('cors')
+//jwr token
+const jwt = require('jsonwebtoken')
+const jwtkeyy = 'itemkeys';
 app.use(cors());
 app.use(express.json())
         app.post('/register',async (req,resp)=>{
@@ -26,7 +29,13 @@ app.use(express.json())
             let result = await me.save();
             result = result.toObject();
             delete result.password;
-            resp.send(result);
+            jwt.sign({result}, jwtkeyy, {expiresIn:'5h'}, (err,token)=>{
+                if(err){
+                    resp.send({result: "ohh no rsult found jwt error"})
+                }
+                resp.send({result, authh:token});
+            })
+            //resp.send(result);
             console.log(result);
         })
 
@@ -35,7 +44,13 @@ app.post('/login', async (req,resp)=>{
   if(req.body.email && req.body.password){ 
     let data  = await User.findOne(req.body).select('-password');
     if(data){
-        resp.send(data);
+        jwt.sign({data}, jwtkeyy, {expiresIn:'5h'}, (err,token)=>{
+            if(err){
+                resp.send({result: "ohh no rsult found jwt error"})
+            }
+            resp.send({data, authh:token});
+        })
+        //resp.send(data);
     }else{
     resp.send({result:'sorry no data found'});
     }
