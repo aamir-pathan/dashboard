@@ -20,8 +20,9 @@ const Login = ()=>{
         });
         result = await result.json();
           console.log(result);
-          if(result.name){
-            localStorage.setItem('user',JSON.stringify(result));
+          if(result.authh){
+            localStorage.setItem('user',JSON.stringify(result.data));
+            localStorage.setItem('token',JSON.stringify(result.authh));
             navigate('/');
           }else alert('this is not match id');
         }

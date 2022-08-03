@@ -10,7 +10,11 @@ const ListProduct = ()=>{
     },[])
 
     const getProduct = async()=>{
-        let result = await fetch('http://localhost:4000/products');
+        let result = await fetch('http://localhost:4000/products',{
+            headers: {
+              authorization: JSON.parse(localStorage.getItem('token')),
+            },
+        });
         // no need to use method ,headers etc due to get mehtod
         //    method : 'post',
         //    body: JSON.stringify({nam,price,category,company}),
