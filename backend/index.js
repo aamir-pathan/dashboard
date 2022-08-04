@@ -24,7 +24,7 @@ const jwt = require('jsonwebtoken')
 const jwtkeyy = 'itemkeys';
 app.use(cors());
 app.use(express.json())
-        app.post('/register',async (req,resp)=>{
+        app.post('/register', verifyToken ,async (req,resp)=>{
             let me  = new User(req.body);
             let result = await me.save();
             result = result.toObject();
@@ -39,7 +39,7 @@ app.use(express.json())
             console.log(result);
         })
 
-app.post('/login', async (req,resp)=>{
+app.post('/login', verifyToken ,async (req,resp)=>{
     console.warn(req.body)
   if(req.body.email && req.body.password){ 
     let data  = await User.findOne(req.body).select('-password');
@@ -59,7 +59,7 @@ app.post('/login', async (req,resp)=>{
    }
 });
 
-app.post('/add-product', async(req,resp)=>{
+app.post('/add-product',verifyToken, async(req,resp)=>{
     let getproduct = new products(req.body);
     let pro = await getproduct.save();
     resp.send(pro);
@@ -91,7 +91,7 @@ app.get('/products', async (req,resp)=>{
     }else resp.send({result:"no result found"});
 })
 
-app.get("/search/:keys",async(req,resp)=>{
+app.get("/search/:keys",verifyToken,async(req,resp)=>{
     let result = await products.find(
         {
            '$or': [
@@ -103,5 +103,25 @@ app.get("/search/:keys",async(req,resp)=>{
     resp.send(result);
 })
 
+
+//send token as middle ware and also verify with this function
+function verifyToken(req,resp,next){
+    //console.log("yes verify meddleware called");
+    let token = req.headers['authorization'];
+    if(token){
+        token = token.split(' ')[1];
+        jwt.verify(token,jwtkeyy,(error,valid)=>{
+            if(error){
+                resp.status(401).send("may be there was an error in token");
+            }else{
+                next();
+            }
+
+        })
+    }else{
+        resp.send("please add token with header first   ")
+    }
+    console.warn("yes callled verify token--",token);
+}
 
 app.listen(4000);
