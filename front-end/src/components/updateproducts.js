@@ -12,7 +12,11 @@ const Updateproduct = ()=>{
         console.warn(params);
     },[])
     const getProduct = async ()=>{
-        let data = await fetch(`http://localhost:4000/getproduct/${params.id}`);
+        let data = await fetch(`http://localhost:4000/getproduct/${params.id}`,{
+            headers: {
+                authorization:`bearer ${JSON.parse(localStorage.getItem('token'))}`
+              }
+        });
         data = await data.json();
         //console.warn(data);
         setName(data.name);
@@ -25,7 +29,9 @@ const Updateproduct = ()=>{
         let data = await fetch(`http://localhost:4000/update/${params.id}`,{
             method : 'put',
             body: JSON.stringify({price,company,name,category}),
-            headers: {"Content-Type":"application/json"}
+            headers: {"Content-Type":"application/json",
+                      authorization:`bearer ${JSON.parse(localStorage.getItem('token'))}`
+                  }
         })
         console.warn(price,company,name,category); 
         data = await data.json();

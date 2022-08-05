@@ -39,7 +39,7 @@ app.use(express.json())
             console.log(result);
         })
 
-app.post('/login', verifyToken ,async (req,resp)=>{
+app.post('/login',async (req,resp)=>{
     console.warn(req.body)
   if(req.body.email && req.body.password){ 
     let data  = await User.findOne(req.body).select('-password');
@@ -65,16 +65,16 @@ app.post('/add-product',verifyToken, async(req,resp)=>{
     resp.send(pro);
 })
 
-app.delete('/delete/:id', async (req,resp)=>{
+app.delete('/delete/:id',verifyToken, async (req,resp)=>{
     //resp.send(req.params.id);
     let result = await products.deleteOne({_id:req.params.id})
     resp.send(result);
 })
-app.get('/getproduct/:ids',async (req,resp)=>{
+app.get('/getproduct/:ids',verifyToken,async (req,resp)=>{
      let data =  await products.findOne({_id:req.params.ids})
      resp.send(data);
 })
-app.put('/update/:ide',async (req,resp)=>{
+app.put('/update/:ide',verifyToken,async (req,resp)=>{
     let data = await products.updateOne(
         {_id: req.params.ide},
         {
@@ -84,10 +84,10 @@ app.put('/update/:ide',async (req,resp)=>{
         resp.send(data)
 })
 
-app.get('/products', async (req,resp)=>{
+app.get('/products',verifyToken, async (req,resp)=>{
     let getProducts = await products.find({});
     if(getProducts.length > 0){
-        resp.send(getProducts);
+        resp.status(403).send(getProducts);
     }else resp.send({result:"no result found"});
 })
 
@@ -119,9 +119,8 @@ function verifyToken(req,resp,next){
 
         })
     }else{
-        resp.send("please add token with header first   ")
+        resp.status(403).send("please add token with header first ")
     }
-    console.warn("yes callled verify token--",token);
 }
 
 app.listen(4000);

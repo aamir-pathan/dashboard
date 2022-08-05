@@ -20,7 +20,8 @@ const inteProduct = async ()=>{
     let result = await fetch('http://localhost:4000/add-product',{
         method: 'post',
         body : JSON.stringify({name,price,category,company}),
-        headers : {'Content-Type':'application/json'}
+        headers : {'Content-Type':'application/json',
+                 authorization:`bearer ${JSON.parse(localStorage.getItem('token'))}`}
     });
     result = await result.json();
     console.warn(result);

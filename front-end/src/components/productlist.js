@@ -12,7 +12,7 @@ const ListProduct = ()=>{
     const getProduct = async()=>{
         let result = await fetch('http://localhost:4000/products',{
             headers: {
-              authorization: JSON.parse(localStorage.getItem('token')),
+              authorization:`bearer ${JSON.parse(localStorage.getItem('token'))}`
             },
         });
         // no need to use method ,headers etc due to get mehtod
@@ -27,7 +27,10 @@ const ListProduct = ()=>{
     const deleteProject = async (id)=>{   
          //console.warn(id);
         let data = await fetch(`http://localhost:4000/delete/${id}`,{
-            method: 'delete'    
+            method: 'delete',    
+            headers: {
+                authorization:`bearer ${JSON.parse(localStorage.getItem('token'))}`
+              }
         });
         data = await data.json();
         if(data){
@@ -40,7 +43,11 @@ const ListProduct = ()=>{
         //console.warn(ee.target.value)
         let itemValue = ee.target.value;
         if(itemValue){
-            let result = await fetch(`http://localhost:4000/search/${itemValue}`);
+            let result = await fetch(`http://localhost:4000/search/${itemValue}`,{
+                headers: {
+                  authorization:`bearer ${JSON.parse(localStorage.getItem('token'))}`
+                },
+            });
             result = await result.json();
             if(result){
                 setProducts(result)
