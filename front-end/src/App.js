@@ -9,6 +9,7 @@ import AddProduct from './components/addproduct';
 import ListProduct from './components/productlist';
 import {BrowserRouter,Route,Routes} from 'react-router-dom';
 import Updateproduct from './components/updateproducts';
+import Demo from './demo';
 function App() {
   return (
     <div className="App">

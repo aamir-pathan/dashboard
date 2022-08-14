@@ -29,7 +29,7 @@ app.use(express.json())
             let result = await me.save();
             result = result.toObject();
             delete result.password;
-            jwt.sign({result}, jwtkeyy, {expiresIn:'5h'}, (err,token)=>{
+            jwt.sign({result}, jwtkeyy, {expiresIn:'48h'}, (err,token)=>{
                 if(err){
                     resp.send({result: "ohh no rsult found jwt error"})
                 }
@@ -44,7 +44,7 @@ app.post('/login',async (req,resp)=>{
   if(req.body.email && req.body.password){ 
     let data  = await User.findOne(req.body).select('-password');
     if(data){
-        jwt.sign({data}, jwtkeyy, {expiresIn:'5h'}, (err,token)=>{
+        jwt.sign({data}, jwtkeyy, {expiresIn:'48h'}, (err,token)=>{
             if(err){
                 resp.send({result: "ohh no rsult found jwt error"})
             }

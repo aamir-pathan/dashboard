@@ -1,6 +1,11 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
+import TextField from '@mui/material/TextField';
+
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button'; 
+
 const Updateproduct = ()=>{
     const [name,setName] = React.useState('');
     const [price,setPrice] = React.useState('');
@@ -40,13 +45,15 @@ const Updateproduct = ()=>{
 
     return(
 
-        <div className="add-product">
+        <div className="update-product">
         <h1>Update product</h1>
-        <input type="text" onChange={(e)=>setName(e.target.value)} value={name} placeholder="enter Product name"/>
-            <input type="text" onChange={(e)=>{setPrice(e.target.value)}} value={price} placeholder="price"/>
-            <input type="text" onChange={(e)=>{setCategory(e.target.value)}} value={category} placeholder="Category"/>
-            <input type="text" onChange={(e)=>{setCompany(e.target.value)} }value={company} placeholder="company"/>
-        <button type="button" onClick={ListUpdate}>update button</button>
+        <div>
+            <TextField label="enter Product name" onChange={(e)=>setName(e.target.value)} value={name} type="text" variant="standard"/>
+            <TextField label="Price" onChange={(e)=>{setPrice(e.target.value)}} value={price} type="text" variant="standard"/>
+            <TextField label="Category" onChange={(e)=>{setCategory(e.target.value)}} value={category} type="text" variant="standard"/>
+            <TextField label="Company" onChange={(e)=>{setCompany(e.target.value)} }value={company}  type="text" variant="standard"/>
+        </div>
+        <Button variant="contained" type="button" onClick={ListUpdate} color="error">Update</Button>
     </div>
     )
 }
