@@ -42,8 +42,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 
 const ListProduct = ()=>{
-  $('.ant-fade').hide();
-  $('.ant-modal-root').hide();
+  $('.ant-fade-appear-active').hide();
+  $('.ant-modal-wrap').hide();
     const [products,setProducts] = useState([]);
 
 // LOAD WHEN COMPONETS CALL
@@ -64,8 +64,8 @@ const ListProduct = ()=>{
 
 
     const deletepro = async (id)=>{
-      $('.ant-modal-root').show();
-      $('.ant-fade').show();
+      $('.ant-fade-appear-active').show();
+      $('.ant-modal-wrap').show();
       
       confirm({
         title: 'Do you Want to delete this Product?',

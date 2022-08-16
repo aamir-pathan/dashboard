@@ -26,15 +26,28 @@
   background-color: #282c34;
   text-align: center;
 }
+
 .update-product > div > div {
   margin-bottom: 8%;
 }
-.update-product > div{
+.add-product > div ,
+  .update-product > div{
   display: flex;
   justify-content: center;
   width: 30%;
   margin: 0 auto;
   flex-direction: column;
+}
+.add-product > div {
+  margin-bottom: 1%;
+}
+.add-product > div span {
+  text-align: left;
+  color: red;
+  font-size: 12px;
+}
+.add-product > div + span {
+  position: absolute;
 }
 .ant-modal-confirm.ant-modal-confirm-confirm.ant-zoom-appear
 {
@@ -70,16 +83,15 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
-.ant-fade {
+.ant-fade-appear-active {
   position: fixed; /* Sit on top of the page content */
-  display: none; /* Hidden by default */
   width: 100%; /* Full width (cover the whole page) */
   height: 100%; /* Full height (cover the whole page) */
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+  background-color: #000000ad ; /* Black background with opacity */
   z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
   cursor: pointer;
 }

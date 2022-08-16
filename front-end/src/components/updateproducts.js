@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 
 import TextField from '@mui/material/TextField';
 
-import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button'; 
 
 const Updateproduct = ()=>{
